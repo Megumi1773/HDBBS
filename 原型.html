@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园论坛 - 学生交流平台</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      min-height: 100vh;
+      color: #2d3748;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* 背景装饰 */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      min-height: 100vh;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+      border-left: 1px solid rgba(255, 255, 255, 0.2);
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* 头部导航优化 */
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1.5rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: linear-gradient(45deg, #fff, #e0e7ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo::before {
+      content: "🎓";
+      font-size: 2.2rem;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+      -webkit-text-fill-color: initial;
+    }
+
+    .search-bar {
+      flex: 1;
+      max-width: 500px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 1rem 1.5rem 1rem 3rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      outline: none;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 2px solid transparent;
+    }
+
+    .search-input:focus {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .search-input::placeholder {
+      color: #6b7280;
+    }
+
+    .search-bar::before {
+      content: "🔍";
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      z-index: 1;
+    }
+
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .user-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      font-size: 1.1rem;
+    }
+
+    .user-avatar:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .notification-btn {
+      position: relative;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 0.75rem;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.3rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10px);
+    }
+
+    .notification-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: linear-gradient(135deg, #ff4757 0%, #ff3742 100%);
+      color: white;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(255, 71, 87, 0.4);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+    /* 主要内容区域优化 */
+    .main-content {
+      display: grid;
+      grid-template-columns: 280px 1fr 320px;
+      gap: 2.5rem;
+      padding: 2.5rem;
+      min-height: calc(100vh - 120px);
+    }
+
+    /* 侧边栏优化 */
+    .sidebar {
+      background: linear-gradient(135deg, rgba(248, 250, 252, 0.9) 0%, rgba(241, 245, 249, 0.9) 100%);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 2rem;
+      height: fit-content;
+      position: sticky;
+      top: 140px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar h3 {
+      color: #4f46e5;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .sidebar h3::before {
+      content: "📋";
+      font-size: 1.4rem;
+    }
+
+    .category-list {
+      list-style: none;
+    }
+
+    .category-item {
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.75rem;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 500;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(79, 70, 229, 0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .category-item:hover::before {
+      left: 100%;
+    }
+
+    .category-item:hover {
+      background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+      color: #4f46e5;
+      transform: translateX(8px);
+      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
+    }
+
+    .category-item.active {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      color: white;
+      box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+      transform: translateX(8px);
+    }
+
+    .category-icon {
+      font-size: 1.3rem;
+      min-width: 24px;
+    }
+
+    /* 帖子列表优化 */
+    .posts-section {
+      background: transparent;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding: 1.5rem 0;
+      border-bottom: 3px solid transparent;
+      background: linear-gradient(90deg, #f1f5f9, #e2e8f0, #f1f5f9);
+      background-size: 200% 3px;
+      background-repeat: no-repeat;
+      background-position: 0 100%;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #1e293b 0%, #4f46e5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .new-post-btn {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .new-post-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .new-post-btn:hover::before {
+      left: 100%;
+    }
+
+    .new-post-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+    }
+
+    .new-post-btn:active {
+      transform: translateY(-1px);
+    }
+
+    .post-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .post-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .post-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .post-card:hover {
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+      transform: translateY(-8px);
+      border-color: rgba(79, 70, 229, 0.2);
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .post-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      border: 3px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .post-meta {
+      flex: 1;
+    }
+
+    .post-author {
+      font-weight: 700;
+      color: #1e293b;
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .post-time {
+      color: #64748b;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .post-category {
+      background: linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 100%);
+      color: #7c3aed;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(124, 58, 237, 0.2);
+      border: 1px solid rgba(124, 58, 237, 0.1);
+    }
+
+    .post-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+      background: linear-gradient(135deg, #1e293b 0%, #4f46e5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .post-content {
+      color: #4b5563;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
+    .post-stats {
+      display: flex;
+      gap: 2rem;
+      color: #64748b;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      background: rgba(248, 250, 252, 0.8);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .stat-item:hover {
+      background: rgba(79, 70, 229, 0.1);
+      color: #4f46e5;
+      transform: translateY(-2px);
+    }
+
+    /* 右侧边栏优化 */
+    .right-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .widget {
+      background: linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(241, 245, 249, 0.95) 100%);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .widget::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+    }
+
+    .widget h3 {
+      color: #1e293b;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hot-topics {
+      list-style: none;
+    }
+
+    .hot-topic {
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      padding: 1rem;
+    }
+
+    .hot-topic:hover {
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+      color: #4f46e5;
+      transform: translateX(8px);
+    }
+
+    .hot-topic:last-child {
+      border-bottom: none;
+    }
+
+    .topic-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .topic-stats {
+      font-size: 0.85rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .online-users {
+      text-align: center;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(5, 150, 105, 0.05) 100%);
+    }
+
+    .user-count {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .user-label {
+      color: #64748b;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    /* 活跃用户样式优化 */
+    .active-user {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .active-user:hover {
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+      transform: translateX(8px);
+    }
+
+    .active-user-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .active-user-info {
+      flex: 1;
+    }
+
+    .active-user-name {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #1e293b;
+      margin-bottom: 0.25rem;
+    }
+
+    .active-user-stats {
+      font-size: 0.85rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    /* 响应式设计优化 */
+    @media (max-width: 1200px) {
+      .main-content {
+        grid-template-columns: 240px 1fr 280px;
+        gap: 2rem;
+        padding: 2rem;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .main-content {
+        grid-template-columns: 200px 1fr 250px;
+        gap: 1.5rem;
+        padding: 1.5rem;
+      }
+
+      .post-card {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 1rem;
+      }
+
+      .nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .search-bar {
+        order: 3;
+        max-width: 100%;
+      }
+
+      .main-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1rem;
+      }
+
+      .sidebar {
+        order: 2;
+        position: static;
+        padding: 1.5rem;
+      }
+
+      .right-sidebar {
+        order: 3;
+      }
+
+      .posts-section {
+        order: 1;
+      }
+
+      .section-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+      }
+
+      .post-header {
+        flex-wrap: wrap;
+      }
+
+      .post-stats {
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .post-card {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        padding: 1rem 0.75rem;
+      }
+
+      .main-content {
+        padding: 0.75rem;
+      }
+
+      .post-card {
+        padding: 1.25rem;
+      }
+
+      .sidebar,
+      .widget {
+        padding: 1.25rem;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+      }
+    }
+
+    /* 加载动画 */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .post-card {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .post-card:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .post-card:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .post-card:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .post-card:nth-child(4) {
+      animation-delay: 0.4s;
+    }
+
+    .post-card:nth-child(5) {
+      animation-delay: 0.5s;
+    }
+
+    /* 滚动条美化 */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(241, 245, 249, 0.5);
+      border-radius: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 6px;
+      border: 2px solid rgba(241, 245, 249, 0.5);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    }
+
+    /* 微交互动画 */
+    @keyframes shimmer {
+      0% {
+        background-position: -200px 0;
+      }
+
+      100% {
+        background-position: calc(200px + 100%) 0;
+      }
+    }
+
+    .shimmer {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200px 100%;
+      animation: shimmer 1.5s infinite;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- 头部导航 -->
+    <header class="header">
+      <nav class="nav">
+        <div class="logo">校园论坛</div>
+        <div class="search-bar">
+          <input type="text" class="search-input" placeholder="搜索帖子、用户或话题...">
+        </div>
+        <div class="user-menu">
+          <button class="notification-btn">
+            🔔
+            <span class="notification-badge">3</span>
+          </button>
+          <div class="user-avatar">张</div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+      <!-- 左侧边栏 -->
+      <aside class="sidebar">
+        <h3>论坛版块</h3>
+        <ul class="category-list">
+          <li class="category-item active">
+            <span class="category-icon">🏠</span>
+            <span>首页</span>
+          </li>
+          <li class="category-item">
+            <span class="category-icon">📚</span>
+            <span>学习交流</span>
+          </li>
+          <li class="category-item">
+            <span class="category-icon">💼</span>
+            <span>求职招聘</span>
+          </li>
+          <li class="category-item">
+            <span class="category-icon">🎮</span>
+            <span>娱乐休闲</span>
+          </li>
+          <li class="category-item">
+            <span class="category-icon">🏃</span>
+            <span>运动健身</span>
+          </li>
+          <li class="category-item">
+            <span class="category-icon">🍔</span>
+            <span>美食分享</span>
+          </li>
+          <li class="category-item">
+            <span class="category-icon">💡</span>
+            <span>创业创新</span>
+          </li>
+          <li class="category-item">
+            <span class="category-icon">❓</span>
+            <span>问答求助</span>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- 帖子列表 -->
+      <section class="posts-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span>🔥</span>
+            最新帖子
+          </h2>
+          <button class="new-post-btn">+ 发布新帖</button>
+        </div>
+
+        <div class="posts-list">
+          <article class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">李</div>
+              <div class="post-meta">
+                <div class="post-author">李明同学</div>
+                <div class="post-time">2小时前</div>
+              </div>
+              <div class="post-category">学习交流</div>
+            </div>
+            <h3 class="post-title">期末复习资料分享 - 高等数学重点知识点整理</h3>
+            <p class="post-content">
+              马上就要期末考试了，整理了一份高等数学的重点知识点，包括极限、导数、积分等核心内容。希望能帮助到大家，一起加油！附件中有详细的思维导图和练习题...
+            </p>
+            <div class="post-stats">
+              <span class="stat-item">👍 128</span>
+              <span class="stat-item">💬 45</span>
+              <span class="stat-item">👁️ 1.2k</span>
+              <span class="stat-item">⭐ 收藏</span>
+            </div>
+          </article>
+
+          <article class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">王</div>
+              <div class="post-meta">
+                <div class="post-author">王小美</div>
+                <div class="post-time">4小时前</div>
+              </div>
+              <div class="post-category">求职招聘</div>
+            </div>
+            <h3 class="post-title">【实习机会】某知名互联网公司前端开发实习生招聘</h3>
+            <p class="post-content">
+              公司正在招聘前端开发实习生，要求熟悉React、Vue等框架，有项目经验优先。实习期间会有导师指导，表现优秀可转正。感兴趣的同学可以私信我...
+            </p>
+            <div class="post-stats">
+              <span class="stat-item">👍 89</span>
+              <span class="stat-item">💬 67</span>
+              <span class="stat-item">👁️ 2.1k</span>
+              <span class="stat-item">⭐ 收藏</span>
+            </div>
+          </article>
+
+          <article class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">陈</div>
+              <div class="post-meta">
+                <div class="post-author">陈大厨</div>
+                <div class="post-time">6小时前</div>
+              </div>
+              <div class="post-category">美食分享</div>
+            </div>
+            <h3 class="post-title">宿舍简易版麻辣香锅制作教程，零厨艺也能做！</h3>
+            <p class="post-content">
+              作为一个资深吃货，终于研究出了宿舍版麻辣香锅的做法！只需要电饭煲和简单食材，10分钟就能享受美味。已经成功安利给室友们，快来学习吧...
+            </p>
+            <div class="post-stats">
+              <span class="stat-item">👍 256</span>
+              <span class="stat-item">💬 89</span>
+              <span class="stat-item">👁️ 3.5k</span>
+              <span class="stat-item">⭐ 收藏</span>
+            </div>
+          </article>
+
+          <article class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">刘</div>
+              <div class="post-meta">
+                <div class="post-author">刘运动</div>
+                <div class="post-time">8小时前</div>
+              </div>
+              <div class="post-category">运动健身</div>
+            </div>
+            <h3 class="post-title">校园跑步打卡第100天！分享我的减肥心得</h3>
+            <p class="post-content">
+              坚持跑步100天了！从最初的气喘吁吁到现在的轻松5公里，体重也从75kg降到了65kg。想和大家分享一下我的运动计划和饮食搭配...
+            </p>
+            <div class="post-stats">
+              <span class="stat-item">👍 189</span>
+              <span class="stat-item">💬 34</span>
+              <span class="stat-item">👁️ 1.8k</span>
+              <span class="stat-item">⭐ 收藏</span>
+            </div>
+          </article>
+
+          <article class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">赵</div>
+              <div class="post-meta">
+                <div class="post-author">赵创客</div>
+                <div class="post-time">12小时前</div>
+              </div>
+              <div class="post-category">创业创新</div>
+            </div>
+            <h3 class="post-title">校园创业项目分享 - 从想法到落地的完整经历</h3>
+            <p class="post-content">
+              和团队一起做的校园外卖小程序终于上线了！从最初的想法到产品设计、技术开发、市场推广，整个过程充满挑战但很有收获。想和大家分享创业路上的酸甜苦辣...
+            </p>
+            <div class="post-stats">
+              <span class="stat-item">👍 145</span>
+              <span class="stat-item">💬 78</span>
+              <span class="stat-item">👁️ 2.3k</span>
+              <span class="stat-item">⭐ 收藏</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 右侧边栏 -->
+      <aside class="right-sidebar">
+        <!-- 热门话题 -->
+        <div class="widget">
+          <h3>🔥 热门话题</h3>
+          <ul class="hot-topics">
+            <li class="hot-topic">
+              <div class="topic-title">#期末复习攻略#</div>
+              <div class="topic-stats">1.2万讨论 · 3.5万阅读</div>
+            </li>
+            <li class="hot-topic">
+              <div class="topic-title">#校园美食推荐#</div>
+              <div class="topic-stats">8.9k讨论 · 2.1万阅读</div>
+            </li>
+            <li class="hot-topic">
+              <div class="topic-title">#实习求职经验#</div>
+              <div class="topic-stats">6.7k讨论 · 1.8万阅读</div>
+            </li>
+            <li class="hot-topic">
+              <div class="topic-title">#宿舍生活日常#</div>
+              <div class="topic-stats">5.4k讨论 · 1.5万阅读</div>
+            </li>
+            <li class="hot-topic">
+              <div class="topic-title">#社团活动分享#</div>
+              <div class="topic-stats">4.2k讨论 · 1.2万阅读</div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 在线用户统计 -->
+        <div class="widget online-users">
+          <h3>📊 社区统计</h3>
+          <div class="user-count">1,247</div>
+          <div class="user-label">在线用户</div>
+          <hr style="margin: 1.5rem 0; border: none; border-top: 2px solid rgba(226, 232, 240, 0.8);">
+          <div
+            style="display: flex; justify-content: space-between; font-size: 1rem; color: #64748b; font-weight: 600;">
+            <div>今日新帖: <strong style="color: #10b981;">156</strong></div>
+            <div>总用户: <strong style="color: #4f46e5;">25.6k</strong></div>
+          </div>
+        </div>
+
+        <!-- 推荐用户 -->
+        <div class="widget">
+          <h3>👥 活跃用户</h3>
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <div class="active-user">
+              <div class="active-user-avatar" style="background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);">学
+              </div>
+              <div class="active-user-info">
+                <div class="active-user-name">学霸小王</div>
+                <div class="active-user-stats">发帖 128 · 获赞 2.1k</div>
+              </div>
+            </div>
+            <div class="active-user">
+              <div class="active-user-avatar" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">美
+              </div>
+              <div class="active-user-info">
+                <div class="active-user-name">美食达人</div>
+                <div class="active-user-stats">发帖 89 · 获赞 1.8k</div>
+              </div>
+            </div>
+            <div class="active-user">
+              <div class="active-user-avatar" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">码
+              </div>
+              <div class="active-user-info">
+                <div class="active-user-name">码农小李</div>
+                <div class="active-user-stats">发帖 67 · 获赞 1.5k</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    // 增强的交互功能
+    document.addEventListener('DOMContentLoaded', function () {
+      // 分类切换动画
+      const categoryItems = document.querySelectorAll('.category-item');
+      categoryItems.forEach(item => {
+        item.addEventListener('click', function () {
+          categoryItems.forEach(i => i.classList.remove('active'));
+          this.classList.add('active');
+
+          // 添加点击波纹效果
+          const ripple = document.createElement('span');
+          ripple.style.cssText = `
+                        position: absolute;
+                        border-radius: 50%;
+                        background: rgba(79, 70, 229, 0.3);
+                        transform: scale(0);
+                        animation: ripple 0.6s linear;
+                        pointer-events: none;
+                    `;
+
+          const rect = this.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height);
+          ripple.style.width = ripple.style.height = size + 'px';
+          ripple.style.left = (rect.width / 2 - size / 2) + 'px';
+          ripple.style.top = (rect.height / 2 - size / 2) + 'px';
+
+          this.appendChild(ripple);
+          setTimeout(() => ripple.remove(), 600);
+        });
+      });
+
+      // 帖子卡片增强交互
+      const postCards = document.querySelectorAll('.post-card');
+      postCards.forEach(card => {
+        card.addEventListener('mouseenter', function () {
+          this.style.transform = 'translateY(-8px) scale(1.02)';
+        });
+
+        card.addEventListener('mouseleave', function () {
+          this.style.transform = 'translateY(0) scale(1)';
+        });
+
+        card.addEventListener('click', function () {
+          console.log('点击了帖子:', this.querySelector('.post-title').textContent);
+          // 添加点击动画
+          this.style.transform = 'translateY(-4px) scale(0.98)';
+          setTimeout(() => {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+          }, 150);
+        });
+      });
+
+      // 搜索框增强效果
+      const searchInput = document.querySelector('.search-input');
+      searchInput.addEventListener('focus', function () {
+        this.parentElement.style.transform = 'scale(1.02)';
+        this.style.boxShadow = '0 12px 40px rgba(79, 70, 229, 0.2)';
+      });
+
+      searchInput.addEventListener('blur', function () {
+        this.parentElement.style.transform = 'scale(1)';
+        this.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+      });
+
+      // 统计数据动画
+      const userCount = document.querySelector('.user-count');
+      const targetCount = parseInt(userCount.textContent.replace(',', ''));
+      let currentCount = 0;
+      const increment = targetCount / 100;
+
+      const countAnimation = setInterval(() => {
+        currentCount += increment;
+        if (currentCount >= targetCount) {
+          currentCount = targetCount;
+          clearInterval(countAnimation);
+        }
+        userCount.textContent = Math.floor(currentCount).toLocaleString();
+      }, 20);
+
+      // 按钮增强效果
+      const buttons = document.querySelectorAll('button');
+      buttons.forEach(button => {
+        button.addEventListener('click', function (e) {
+          const ripple = document.createElement('span');
+          const rect = this.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height);
+
+          ripple.style.cssText = `
+                        position: absolute;
+                        border-radius: 50%;
+                        background: rgba(255, 255, 255, 0.4);
+                        transform: scale(0);
+                        animation: ripple 0.6s linear;
+                        pointer-events: none;
+                        width: ${size}px;
+                        height: ${size}px;
+                        left: ${e.clientX - rect.left - size/2}px;
+                        top: ${e.clientY - rect.top - size/2}px;
+                    `;
+
+          this.appendChild(ripple);
+          setTimeout(() => ripple.remove(), 600);
+        });
+      });
+
+      // 添加CSS动画关键帧
+      const style = document.createElement('style');
+      style.textContent = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+            `;
+      document.head.appendChild(style);
+
+      // 滚动视差效果
+      window.addEventListener('scroll', function () {
+        const scrolled = window.pageYOffset;
+        const parallax = document.querySelector('body::before');
+        if (parallax) {
+          parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+      });
+
+      // 懒加载动画
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+
+      // 观察所有卡片元素
+      document.querySelectorAll('.post-card, .widget').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+      });
+    });
+  </script>
+</body>
+
+</html>
