@@ -8,7 +8,7 @@ import (
 
 var db *gorm.DB
 
-func InitDB() {
+func InitDB() *gorm.DB {
 	var err error
 	c := appConfig.DataBase
 	dns := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", c.Username, c.Password, c.Url, c.Port, c.Dbname)
@@ -16,4 +16,5 @@ func InitDB() {
 	if err != nil {
 		panic(err)
 	}
+	return db
 }

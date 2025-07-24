@@ -1,14 +1,20 @@
 package main
 
 import (
-	"Backend/model"
 	"fmt"
 )
 
 func main() {
 	InitConfig()
-	fmt.Println(appConfig)
 	InitDB()
-	fmt.Println(db)
-	_ = db.AutoMigrate(&model.User{})
+	_ = db.AutoMigrate(&User{})
+	_ = db.AutoMigrate(&Gender{})
+	_ = db.AutoMigrate(&Category{})
+	r := InitRouters()
+
+	port := fmt.Sprintf(":%s", appConfig.Server.Port)
+	if port == "" {
+		port = ":8080"
+	}
+	_ = r.Run(port)
 }

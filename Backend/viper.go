@@ -20,7 +20,7 @@ type AppConfig struct {
 
 var appConfig *AppConfig
 
-func InitConfig() {
+func InitConfig() *AppConfig {
 	viper.SetConfigName("config")
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath("./")
@@ -31,4 +31,5 @@ func InitConfig() {
 	if err := viper.Unmarshal(appConfig); err != nil {
 		log.Fatalf("Error parsing config file, %v", err)
 	}
+	return appConfig
 }
