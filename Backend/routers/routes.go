@@ -12,5 +12,9 @@ func InitRouters() *gin.Engine {
 		auth.POST("/login", controllers.Login)
 		auth.POST("/register", controllers.Register)
 	}
+	cate := r.Group("/api/cate")
+	{
+		cate.GET("/getAllCate", controllers.GetAllCategory)
+	}
 	return r
 }

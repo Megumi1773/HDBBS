@@ -30,4 +30,7 @@ func migrateDB() {
 	if err := global.Db.AutoMigrate(&models.User{}); err != nil {
 		log.Fatalf("database migration failed: %v", err)
 	}
+	if err := global.Db.AutoMigrate(&models.Category{}); err != nil {
+		log.Fatalf("database migration failed: %v", err)
+	}
 }

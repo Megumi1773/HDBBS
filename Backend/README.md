@@ -4,7 +4,7 @@
 
 ### 登录
 
-#### URL: api/auth/login
+#### URL: api/auth/login  POST
 
 请求体---json
 
@@ -30,7 +30,7 @@
 
 ###注册
 
-#### URL: api/auth/login
+#### URL: api/auth/register POST
 
 请求体---json
 
@@ -56,5 +56,31 @@
     "password": "admin"
   },
   "msg": "注册成功！"
+}
+```
+
+###获取分类列表
+
+#### URL: /api/cate/getAllCate GET
+
+
+响应示例
+
+```json
+{
+  "code": 200,
+  "data": [
+    {
+      "ID": 1,
+      "Name": "科技",
+      "Icon": "🚗"
+    },
+    {
+      "ID": 2,
+      "Name": "游戏",
+      "Icon": "🎮"
+    }
+  ],
+  "msg": "获取成功"
 }
 ```

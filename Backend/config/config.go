@@ -19,6 +19,10 @@ type Config struct {
 		MaxIdleConn int    `yaml:"max_idle_conn"`
 		MaxOpenConn int    `yaml:"max_open_conn"`
 	} `yaml:"database"`
+	Jwt struct {
+		Key string `yaml:"key"`
+		Exp int    `yaml:"exp"`
+	}
 }
 
 var AppConfig *Config
