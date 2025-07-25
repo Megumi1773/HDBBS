@@ -63,7 +63,6 @@
 
 #### URL: /api/cate/getAllCate GET
 
-
 响应示例
 
 ```json
@@ -85,4 +84,15 @@
 }
 ```
 
+### 更新用户信息
 
+#### URL: /api/user/update  PUT
+
+所有参数均为可选
+
+```json
+{
+  "nickname": "Megumikato",
+  "avatar": "图片链接地址"
+}
+```

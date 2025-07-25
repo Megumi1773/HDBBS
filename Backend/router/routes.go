@@ -20,7 +20,7 @@ func InitRouters() *gin.Engine {
 	user := r.Group("/api/user")
 	user.Use(middle.AuthTokenMiddle)
 	{
-		user.POST("/update", controllers.UpdateUserInfo)
+		user.PUT("/update", controllers.UpdateUserInfo)
 	}
 	return r
 }
