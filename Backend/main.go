@@ -2,14 +2,13 @@ package main
 
 import (
 	"Backend/config"
-	"Backend/routers"
+	"Backend/router"
 	"fmt"
 )
 
 func main() {
 	config.GetConfig()
-	r := routers.InitRouters()
-
+	r := router.InitRouters()
 	port := fmt.Sprintf(":%s", config.AppConfig.App.Port)
 	if port == "" {
 		port = ":8080"

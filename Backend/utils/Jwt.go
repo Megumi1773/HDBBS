@@ -14,9 +14,7 @@ func CreateToken(username string) (string, error) {
 		"username": username,
 		"exp":      time.Now().Add(time.Hour * time.Duration(config.AppConfig.Jwt.Exp)).Unix(),
 	})
-	s, err := token.SignedString([]byte(key))
-
-	return "Bearer " + s, err
+	return token.SignedString([]byte(key))
 }
 
 func ParseToken(tokenString string) (jwt.Claims, error) {

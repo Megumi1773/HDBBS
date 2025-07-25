@@ -1,7 +1,8 @@
-package routers
+package router
 
 import (
 	"Backend/controllers"
+	"Backend/middle"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,6 +16,11 @@ func InitRouters() *gin.Engine {
 	cate := r.Group("/api/cate")
 	{
 		cate.GET("/getAllCate", controllers.GetAllCategory)
+	}
+	user := r.Group("/api/user")
+	user.Use(middle.AuthTokenMiddle)
+	{
+		user.POST("/update", controllers.UpdateUserInfo)
 	}
 	return r
 }

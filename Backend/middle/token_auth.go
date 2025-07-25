@@ -84,6 +84,5 @@ func AuthTokenMiddle(c *gin.Context) {
 		}
 		c.Set("claims", claims)
 	}
-
 	c.Next()
 }
