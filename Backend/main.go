@@ -1,18 +1,16 @@
 package main
 
 import (
+	"Backend/config"
+	"Backend/routers"
 	"fmt"
 )
 
 func main() {
-	InitConfig()
-	InitDB()
-	_ = db.AutoMigrate(&User{})
-	_ = db.AutoMigrate(&Gender{})
-	_ = db.AutoMigrate(&Category{})
-	r := InitRouters()
+	config.GetConfig()
+	r := routers.InitRouters()
 
-	port := fmt.Sprintf(":%s", appConfig.Server.Port)
+	port := fmt.Sprintf(":%s", config.AppConfig.App.Port)
 	if port == "" {
 		port = ":8080"
 	}
