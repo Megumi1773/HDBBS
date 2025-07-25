@@ -52,90 +52,7 @@
 
         <!-- ==================== 左侧导航栏 ==================== -->
         <div class="sidebar">
-          <div class="sidebar-card">
-            <!-- 导航栏标题 -->
-            <div class="sidebar-header">
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
-              </svg>
-              <h2>论坛版块</h2>
-            </div>
-
-            <!-- 导航菜单列表 -->
-            <nav class="nav-menu">
-              <a href="#" class="nav-item" :class="{ active: activeNavItem === 'home' }" @click="setActiveNav('home')">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-                </svg>
-                <span>首页</span>
-              </a>
-
-              <a href="#" class="nav-item" :class="{ active: activeNavItem === 'study' }"
-                @click="setActiveNav('study')">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>学习交流</span>
-              </a>
-
-              <a href="#" class="nav-item" :class="{ active: activeNavItem === 'job' }" @click="setActiveNav('job')">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
-                </svg>
-                <span>求职招聘</span>
-              </a>
-
-              <a href="#" class="nav-item" :class="{ active: activeNavItem === 'entertainment' }"
-                @click="setActiveNav('entertainment')">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd"
-                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                    clip-rule="evenodd" />
-                </svg>
-                <span>娱乐休闲</span>
-              </a>
-
-              <a href="#" class="nav-item" :class="{ active: activeNavItem === 'sports' }"
-                @click="setActiveNav('sports')">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd"
-                    d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z"
-                    clip-rule="evenodd" />
-                </svg>
-                <span>运动健身</span>
-              </a>
-
-              <a href="#" class="nav-item" :class="{ active: activeNavItem === 'food' }" @click="setActiveNav('food')">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd"
-                    d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2H6zm1 2a1 1 0 000 2h6a1 1 0 100-2H7z"
-                    clip-rule="evenodd" />
-                </svg>
-                <span>美食分享</span>
-              </a>
-
-              <a href="#" class="nav-item" :class="{ active: activeNavItem === 'startup' }"
-                @click="setActiveNav('startup')">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd"
-                    d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947z"
-                    clip-rule="evenodd" />
-                </svg>
-                <span>创业创新</span>
-              </a>
-
-              <a href="#" class="nav-item" :class="{ active: activeNavItem === 'help' }" @click="setActiveNav('help')">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd"
-                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                    clip-rule="evenodd" />
-                </svg>
-                <span>问答求助</span>
-              </a>
-            </nav>
-          </div>
+          <Forumsection></Forumsection>
         </div>
 
         <!-- 中间主内容 -->
@@ -147,76 +64,7 @@
         <div class="right-sidebar">
 
           <!-- 热门话题模块 -->
-          <div class="widget">
-            <div class="widget-header">
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd"
-                  d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03z"
-                  clip-rule="evenodd" />
-              </svg>
-              <h3>热门话题</h3>
-            </div>
-
-            <div class="topics-list">
-              <div class="topic-item" v-for="topic in hotTopics" :key="topic.id" @click="handleTopicClick(topic)">
-                <span class="topic-name">{{ topic.name }}</span>
-                <div class="topic-stats">
-                  <div>{{ topic.discussions }}讨论</div>
-                  <div>{{ topic.views }}阅读</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 社区统计模块 -->
-          <div class="widget">
-            <div class="widget-header">
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
-              </svg>
-              <h3>社区统计</h3>
-            </div>
-
-            <!-- 主要统计数据 -->
-            <div class="stats-main">
-              <div class="main-stat">{{ communityStats.onlineUsers }}</div>
-              <div class="main-stat-label">在线用户</div>
-            </div>
-
-            <!-- 次要统计数据网格 -->
-            <div class="stats-grid">
-              <div class="stat-box">
-                <div class="stat-number blue">{{ communityStats.todayPosts }}</div>
-                <div class="stat-label">今日新帖</div>
-              </div>
-              <div class="stat-box">
-                <div class="stat-number purple">{{ communityStats.totalUsers }}</div>
-                <div class="stat-label">总用户</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 活跃用户模块 -->
-          <div class="widget">
-            <div class="widget-header">
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
-              </svg>
-              <h3>活跃用户</h3>
-            </div>
-
-            <div class="users-list">
-              <div class="user-item" v-for="user in activeUsers" :key="user.id" @click="handleUserProfileClick(user)">
-                <div class="user-avatar" :class="user.avatarColor">{{ user.avatar }}</div>
-                <div class="user-info">
-                  <div class="user-name">{{ user.name }}</div>
-                  <div class="user-status">{{ user.lastActive }}</div>
-                </div>
-                <div class="status-dot" :class="user.status"></div>
-              </div>
-            </div>
-          </div>
+          <RightSideTaskbar></RightSideTaskbar>
         </div>
       </div>
     </div>
@@ -224,25 +72,9 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
-import axios from 'axios';
-import Message from './message.vue';
-let Classify = reactive([])
-let get = () => {
-  axios.get('/api/categories')
-    .then(response => {
-      Classify = response.data.data
-      console.log(`主题数据请求成功：`);
-      console.log(Classify);
+import RightSideTaskbar from './RightSideTaskbar.vue'
+import Right from './RightSideTaskbar.vue'
 
-    })
-    .catch(error => {
-      console.error('Error fetching posts:', error);
-    });
-}
-onMounted(() => {
-  get();
-});
 
 // ==================== 响应式数据定义 ====================
 
@@ -260,76 +92,7 @@ const setActiveNav = (navItem) => {
   // 可根据需要添加内容区联动逻辑
 }
 
-// 帖子数据
-const posts = reactive([
-  {
-    id: 1,
-    username: '李明同学',
-    avatar: '李',
-    avatarColor: 'purple',
-    time: '2小时前',
-    category: '学习交流',
-    categoryColor: 'purple',
-    title: '期末复习资料分享 - 高等数学重点知识点整理',
-    excerpt: '马上就要期末考试了，整理了一份高等数学的重点知识点，包括极限、导数、积分等核心内容，希望能帮助大家，一起加油！附件中有详细的思维导图和练习题...',
-    likes: 128,
-    comments: 45,
-    views: '1.2k'
-  },
-  {
-    id: 2,
-    username: '王小美',
-    avatar: '王',
-    avatarColor: 'blue',
-    time: '4小时前',
-    category: '求职招聘',
-    categoryColor: 'blue',
-    title: '【实习机会】某知名互联网公司前端开发实习生招聘',
-    excerpt: '公司正在招聘前端开发实习生，要求熟悉React、Vue等框架，有项目经验优先。实习期间会有导师指导，表现优秀可转正，感兴趣的同学可以私信我...',
-    likes: 89,
-    comments: 67,
-    views: '2.1k'
-  },
-  {
-    id: 3,
-    username: '陈大厨',
-    avatar: '陈',
-    avatarColor: 'green',
-    time: '6小时前',
-    category: '美食分享',
-    categoryColor: 'green',
-    title: '宿舍简易版麻辣香锅制作教程，零厨艺也能做！',
-    excerpt: '作为一个资深吃货，终于研究出了适合宿舍制作的简易麻辣香锅，用料简单，步骤清晰，保证你们都能学会。图片教程已上传，快来试试吧...',
-    likes: 156,
-    comments: 32,
-    views: '892'
-  }
-])
-
-// 热门话题数据
-const hotTopics = reactive([
-  { id: 1, name: '#期末复习攻略#', discussions: '1.2万', views: '3.5万' },
-  { id: 2, name: '#校园美食推荐#', discussions: '8.9k', views: '2.1万' },
-  { id: 3, name: '#实习求职经验#', discussions: '6.7k', views: '1.8万' },
-  { id: 4, name: '#宿舍生活日常#', discussions: '5.4k', views: '1.5万' },
-  { id: 5, name: '#社团活动分享#', discussions: '4.2k', views: '1.2万' }
-])
-
-// 社区统计数据
-const communityStats = reactive({
-  onlineUsers: '1,247',
-  todayPosts: '156',
-  totalUsers: '25.6k'
-})
-
-// 活跃用户数据
-const activeUsers = reactive([
-  { id: 1, name: '李明同学', avatar: '李', avatarColor: 'purple', lastActive: '刚刚活跃', status: 'online' },
-  { id: 2, name: '王小美', avatar: '王', avatarColor: 'blue', lastActive: '5分钟前', status: 'online' },
-  { id: 3, name: '陈大厨', avatar: '陈', avatarColor: 'green', lastActive: '10分钟前', status: 'away' }
-])
-
-// ==================== 事件处理函数 ====================
+// ==================== 方法定义 ====================
 
 // 搜索处理
 const handleSearch = () => {
@@ -349,54 +112,6 @@ const handleUserClick = () => {
   // 这里可以显示用户菜单
 }
 
-// 导航项切换
-// const setActiveNav = (navItem) => {
-//   activeNavItem.value = navItem
-//   console.log('切换到导航项:', navItem)
-//   // 这里可以添加路由跳转或内容过滤逻辑
-// }
-
-// 发布新帖
-const handleNewPost = () => {
-  console.log('发布新帖')
-  // 这里可以打开发帖弹窗或跳转到发帖页面
-}
-
-// 帖子点击处理
-const handlePostClick = (post) => {
-  console.log('点击帖子:', post.title)
-  // 这里可以跳转到帖子详情页
-}
-
-// 点赞处理
-const handleLike = (post) => {
-  post.likes++
-  console.log('点赞帖子:', post.title)
-}
-
-// 评论处理
-const handleComment = (post) => {
-  console.log('评论帖子:', post.title)
-  // 这里可以打开评论弹窗
-}
-
-// 收藏处理
-const handleFavorite = (post) => {
-  console.log('收藏帖子:', post.title)
-  // 这里可以添加收藏逻辑
-}
-
-// 话题点击处理
-const handleTopicClick = (topic) => {
-  console.log('点击话题:', topic.name)
-  // 这里可以跳转到话题页面
-}
-
-// 用户资料点击处理
-const handleUserProfileClick = (user) => {
-  console.log('点击用户资料:', user.name)
-  // 这里可以跳转到用户资料页面
-}
 
 // ==================== 生命周期钩子 ====================
 onMounted(() => {
@@ -590,71 +305,6 @@ onMounted(() => {
 }
 
 
-/* ==================== 左侧导航栏样式 ==================== */
-.sidebar-card {
-  background: white;
-  border-radius: 0.75rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-  position: sticky;
-  top: 6rem;
-}
-
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #f3f4f6;
-}
-
-.sidebar-header svg {
-  color: #8b5cf6;
-}
-
-.sidebar-header h2 {
-  font-weight: 600;
-  color: #1f2937;
-  font-size: 1rem;
-}
-
-.nav-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  text-decoration: none;
-  color: #6b7280;
-  transition: all 0.2s;
-  font-size: 0.875rem;
-}
-
-.nav-item:hover {
-  background: #f9fafb;
-  color: #374151;
-  transform: translateX(2px);
-}
-
-.nav-item.active {
-  background: #8b5cf6;
-  color: white;
-  font-weight: 500;
-  box-shadow: 0 2px 4px rgba(139, 92, 246, 0.2);
-}
-
-.nav-item svg {
-  width: 1.25rem;
-  height: 1.25rem;
-  flex-shrink: 0;
-}
 
 /* ==================== 主要内容区域样式 ==================== */
 .posts-container {
@@ -849,183 +499,6 @@ onMounted(() => {
   height: 1rem;
 }
 
-/* ==================== 右侧信息栏样式 ==================== */
-.right-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.widget {
-  background: white;
-  border-radius: 0.75rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-  position: sticky;
-  top: 6rem;
-}
-
-.widget-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid #f3f4f6;
-}
-
-.widget-header h3 {
-  font-weight: 600;
-  color: #1f2937;
-  font-size: 0.875rem;
-}
-
-.widget-header svg {
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-/* 热门话题样式 */
-.topics-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.topic-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem;
-  border-radius: 0.375rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.topic-item:hover {
-  background: #f9fafb;
-}
-
-.topic-name {
-  color: #1f2937;
-  font-weight: 500;
-  font-size: 0.875rem;
-}
-
-.topic-stats {
-  text-align: right;
-  font-size: 0.75rem;
-  color: #6b7280;
-  line-height: 1.3;
-}
-
-/* 社区统计样式 */
-.stats-main {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
-  border-radius: 0.5rem;
-}
-
-.main-stat {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #10b981;
-  margin-bottom: 0.25rem;
-}
-
-.main-stat-label {
-  color: #6b7280;
-  font-size: 0.875rem;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  text-align: center;
-}
-
-.stat-box {
-  padding: 0.75rem;
-  background: #f9fafb;
-  border-radius: 0.375rem;
-}
-
-.stat-number {
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-}
-
-.stat-number.blue {
-  color: #3b82f6;
-}
-
-.stat-number.purple {
-  color: #8b5cf6;
-}
-
-.stat-label {
-  font-size: 0.75rem;
-  color: #6b7280;
-}
-
-/* 活跃用户样式 */
-.users-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.user-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem;
-  border-radius: 0.375rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.user-item:hover {
-  background: #f9fafb;
-}
-
-.user-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.user-name {
-  font-weight: 500;
-  color: #1f2937;
-  font-size: 0.875rem;
-}
-
-.user-status {
-  font-size: 0.75rem;
-  color: #6b7280;
-  margin-top: 0.125rem;
-}
-
-.status-dot {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 9999px;
-  flex-shrink: 0;
-}
-
-.status-dot.online {
-  background: #10b981;
-  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
-}
-
-.status-dot.away {
-  background: #f59e0b;
-  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
-}
 
 /* ==================== 滚动条样式 ==================== */
 ::-webkit-scrollbar {
@@ -1056,17 +529,5 @@ onMounted(() => {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   gap: 1.5rem;
-}
-
-.sidebar {
-  /* 左侧导航栏样式 */
-}
-
-.main-content {
-  /* 中间内容区样式 */
-}
-
-.right-sidebar {
-  /* 右侧信息栏样式 */
 }
 </style>
