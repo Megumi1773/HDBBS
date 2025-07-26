@@ -40,7 +40,17 @@
               <span class="notification-badge">{{ notificationCount }}</span>
             </div>
             <!-- 用户头像 -->
-            <div class="user-avatar" @click="handleUserClick">张</div>
+
+            <el-dropdown ref="dropdown1" trigger="contextmenu" style="margin-right: 30px">
+              <div class="user-avatar" @click="handleUserClick()">张</div>
+              <template #dropdown>
+                <el-dropdown-menu size="large">
+                  <el-dropdown-item>修改密码</el-dropdown-item>
+                  <el-dropdown-item type="warning" @click="handleLogout()">退出登录</el-dropdown-item>
+
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
           </div>
         </div>
       </div>
@@ -72,15 +82,16 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
 import RightSideTaskbar from './RightSideTaskbar.vue'
 import Right from './RightSideTaskbar.vue'
 
-
+const dropdown1 = ref()
 // ==================== 响应式数据定义 ====================
 
 // 搜索相关
 const searchQuery = ref('')
-
+let router = useRouter()
 // 通知相关
 const notificationCount = ref(3)
 
@@ -93,22 +104,18 @@ const setActiveNav = (navItem) => {
 }
 
 // ==================== 方法定义 ====================
-
-// 搜索处理
-const handleSearch = () => {
-  console.log('搜索内容:', searchQuery.value)
-  // 这里可以添加搜索逻辑
+let handleLogout = () => {
+  router.push('/login')
+  console.log('用户已退出登录')
 }
 
-// 通知点击处理
-const handleNotificationClick = () => {
-  console.log('点击通知')
-  // 这里可以显示通知列表
-}
 
 // 用户头像点击处理
 const handleUserClick = () => {
+
+  dropdown1.value.handleOpen()
   console.log('点击用户头像')
+
   // 这里可以显示用户菜单
 }
 
@@ -137,7 +144,7 @@ onMounted(() => {
 
 /* ==================== 头部导航样式 ==================== */
 .header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #667eea 0%);
   color: white;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   position: sticky;
@@ -456,6 +463,13 @@ onMounted(() => {
   cursor: pointer;
   transition: color 0.2s;
   line-height: 1.4;
+}
+
+.right-sidebar {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
 }
 
 .post-title:hover {

@@ -18,6 +18,7 @@ onMounted(() => {
 
 </script>
 <template>
+
   <div class="sidebar-card">
     <!-- 导航栏标题 -->
     <div class="sidebar-header">

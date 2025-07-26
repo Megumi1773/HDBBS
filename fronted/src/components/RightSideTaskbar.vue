@@ -46,79 +46,81 @@ onMounted(() => {
 })
 </script>
 <template>
+  <div class="right-sidebar">
 
-  <!-- 热门话题模块 -->
-  <div class="widget">
-    <div class="widget-header">
-      <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-        <path fill-rule="evenodd"
-          d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03z"
-          clip-rule="evenodd" />
-      </svg>
-      <h3>热门话题</h3>
+
+    <!-- 热门话题模块 -->
+    <div class="widget">
+      <div class="widget-header">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd"
+            d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03z"
+            clip-rule="evenodd" />
+        </svg>
+        <h3>热门话题</h3>
+      </div>
+
+      <div class="topics-list">
+        <div class="topic-item" v-for="topic in hotTopics" :key="topic.id" @click="handleTopicClick(topic)">
+          <span class="topic-name">{{ topic.name }}</span>
+          <div class="topic-stats">
+            <div>{{ topic.discussions }}讨论</div>
+            <div>{{ topic.views }}阅读</div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="topics-list">
-      <div class="topic-item" v-for="topic in hotTopics" :key="topic.id" @click="handleTopicClick(topic)">
-        <span class="topic-name">{{ topic.name }}</span>
-        <div class="topic-stats">
-          <div>{{ topic.discussions }}讨论</div>
-          <div>{{ topic.views }}阅读</div>
+    <!-- 社区统计模块 -->
+    <div class="widget">
+      <div class="widget-header">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+        </svg>
+        <h3>社区统计</h3>
+      </div>
+
+      <!-- 主要统计数据 -->
+      <div class="stats-main">
+        <div class="main-stat">{{ communityStats.onlineUsers }}</div>
+        <div class="main-stat-label">在线用户</div>
+      </div>
+
+      <!-- 次要统计数据网格 -->
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-number blue">{{ communityStats.todayPosts }}</div>
+          <div class="stat-label">今日新帖</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number purple">{{ communityStats.totalUsers }}</div>
+          <div class="stat-label">总用户</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 活跃用户模块 -->
+    <div class="widget">
+      <div class="widget-header">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
+        </svg>
+        <h3>活跃用户</h3>
+      </div>
+
+      <div class="users-list">
+        <div class="user-item" v-for="user in activeUsers" :key="user.id" @click="handleUserProfileClick(user)">
+          <div class="user-avatar" :class="user.avatarColor">{{ user.avatar }}</div>
+          <div class="user-info">
+            <div class="user-name">{{ user.name }}</div>
+            <div class="user-status">{{ user.lastActive }}</div>
+          </div>
+          <div class="status-dot" :class="user.status"></div>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- 社区统计模块 -->
-  <div class="widget">
-    <div class="widget-header">
-      <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-        <path
-          d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
-      </svg>
-      <h3>社区统计</h3>
-    </div>
-
-    <!-- 主要统计数据 -->
-    <div class="stats-main">
-      <div class="main-stat">{{ communityStats.onlineUsers }}</div>
-      <div class="main-stat-label">在线用户</div>
-    </div>
-
-    <!-- 次要统计数据网格 -->
-    <div class="stats-grid">
-      <div class="stat-box">
-        <div class="stat-number blue">{{ communityStats.todayPosts }}</div>
-        <div class="stat-label">今日新帖</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-number purple">{{ communityStats.totalUsers }}</div>
-        <div class="stat-label">总用户</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 活跃用户模块 -->
-  <div class="widget">
-    <div class="widget-header">
-      <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
-      </svg>
-      <h3>活跃用户</h3>
-    </div>
-
-    <div class="users-list">
-      <div class="user-item" v-for="user in activeUsers" :key="user.id" @click="handleUserProfileClick(user)">
-        <div class="user-avatar" :class="user.avatarColor">{{ user.avatar }}</div>
-        <div class="user-info">
-          <div class="user-name">{{ user.name }}</div>
-          <div class="user-status">{{ user.lastActive }}</div>
-        </div>
-        <div class="status-dot" :class="user.status"></div>
-      </div>
-    </div>
-  </div>
-
 </template>
 <style scoped>
 /* ==================== 右侧信息栏样式 ==================== */
@@ -133,7 +135,7 @@ onMounted(() => {
   border-radius: 0.75rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
-  position: sticky;
+
   top: 6rem;
 }
 
